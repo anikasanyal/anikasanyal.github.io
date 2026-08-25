@@ -3,505 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Electric Outlet — Compute Topology Lab</title>
-    
-    <link rel="icon" type="image/png" href="logo_icon.png">
-    
+    <title>The Electric Outlet</title>
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --panel-bg: #111115;
-            --border-color: #242427;
-            --text-primary: #f4f4f5;
-            --text-secondary: #a1a1aa;
-            --accent-blue: #3b82f6;
-            --accent-amber: #f59e0b;
-            --accent-emerald: #10b981;
+            --bg: #fafafa;
+            --text: #171717;
+            --muted: #737373;
+            --border: #e5e5e5;
+            --link: #2563eb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0a0a0a;
+                --text: #eddada;
+                --text: #f5f5f5;
+                --muted: #a3a3a3;
+                --border: #262626;
+                --link: #60a5fa;
+            }
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
-            padding: 40px 24px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 1240px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
+            max-width: 620px;
         }
 
         header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 24px;
+            margin-bottom: 40px;
         }
 
-        .workspace-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
+        h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.01em;
         }
 
-        @media (min-width: 950px) {
-            .workspace-grid { grid-template-columns: 1.2fr 1fr; }
-        }
-
-        .panel-container {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .panel-tag {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-secondary);
-            font-weight: 700;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+        .bio {
+            color: var(--muted);
+            font-size: 14px;
             margin: 0;
         }
 
-        .preset-flex { display: flex; gap: 10px; flex-wrap: wrap; }
-
-        .preset-tab {
-            background: #16161a;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 10px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
+        nav {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.15s ease;
+            gap: 16px;
+            margin-top: 20px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
         }
 
-        .preset-tab:hover { border-color: var(--text-secondary); }
-        .preset-tab.active { 
-            border-color: var(--accent-blue); 
-            background: rgba(59, 130, 246, 0.08); 
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
         }
 
-        .indicator-dot { width: 7px; height: 7px; border-radius: 50%; }
-
-        .slider-group { display: flex; flex-direction: column; gap: 8px; }
-        .slider-meta-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; }
-        .slider-desc { font-size: 11px; color: var(--text-secondary); margin-top: -2px; }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--accent-blue);
-            background: var(--border-color);
-            height: 4px;
-            outline: none;
-            border-radius: 2px;
+        nav a:hover {
+            color: var(--link);
         }
 
-        /* HARDWARE SPATIAL CANVAS (ZOOMED OUT VIEWPORT) */
-        .topography-box {
-            background: #08080a;
-            border: 1px solid var(--border-color);
-            height: 200px;
-            border-radius: 6px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .grid-mask {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(var(--border-color) 1px, transparent 1px), linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.12;
-        }
-
-        .hardware-dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--accent-blue);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
-        }
-
-        /* METRIC DISPLAY CARDS WITH CLEAN HOVER TOOLTIPS */
-        .readout-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .readout-card {
-            background: #151519;
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 4px;
-            text-align: center;
-            position: relative;
-            cursor: help;
-            transition: border-color 0.15s ease;
-        }
-
-        .readout-card:hover { border-color: var(--text-secondary); }
-        .readout-number { font-size: 18px; font-weight: 700; color: #ffffff; }
-        .readout-label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; margin-top: 4px; }
-
-        /* HOVER TOOLTIPS */
-        .formula-tooltip {
-            visibility: hidden;
-            position: absolute;
-            bottom: 115%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1c1c24;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 12px 14px;
-            border-radius: 6px;
+        .section-title {
             font-size: 11px;
-            width: 240px;
-            text-align: left;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.15s ease, transform 0.15s ease;
-            line-height: 1.4;
-        }
-
-        .formula-tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #1c1c24 transparent transparent transparent;
-        }
-
-        .readout-card:hover .formula-tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(-4px);
-        }
-
-        .formula-title {
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 6px;
             text-transform: uppercase;
-            font-size: 9px;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            margin: 32px 0 16px 0;
         }
 
-        .directory-stack { display: flex; flex-direction: column; gap: 12px; }
+        .item-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-        .directory-card {
-            background: #141417;
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            border-radius: 6px;
-            cursor: pointer;
+        .item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            transition: all 0.15s ease;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 14px;
         }
 
-        .directory-card:hover { border-color: var(--text-secondary); background: #17171c; }
-        .dir-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
-        .dir-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
-        .dir-spec-block { font-family: monospace; font-size: 12px; text-align: right; min-width: 100px; }
+        .item a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+        }
 
-        .footer-pipeline {
+        .item a:hover {
+            border-color: var(--text);
+        }
+
+        .date {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: ui-monospace, monospace;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
             display: flex;
             justify-content: space-between;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 11px;
         }
-
-        .legacy-link { color: var(--text-primary); text-decoration: none; border-bottom: 1px solid var(--text-secondary); }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <div style="margin-bottom: 12px;">
-                <img src="full_logo_color.png" alt="The Electric Outlet" style="height: 32px; width: auto; display: block;">
-            </div>
-            <p style="color: var(--text-secondary); font-size: 13px; margin: 0; max-width: 800px; line-height: 1.5;">
-                Independent tracking, structural metrics, and physical capacity profiling across global compute networks, edge topologies, and deep training arrays.
-            </p>
+            <h1>The Electric Outlet</h1>
+            <p class="bio">Notes on physical compute, defense tech, energy systems, and capital allocation.</p>
+            <nav>
+                <a href="#essays">Essays</a>
+                <a href="#notes">Working Memos</a>
+                <a href="#about">About</a>
+            </nav>
         </header>
 
-        <div class="workspace-grid">
-            
-            <div class="panel-container">
-                <p class="panel-tag">● Physical Grid & Network Sandbox</p>
-                
-                <div class="preset-flex">
-                    <button class="preset-tab active" id="tab-custom" onclick="setPresetContext('custom')">🛠️ Custom Setup</button>
-                    <button class="preset-tab" id="tab-waymo" onclick="setPresetContext('waymo')"><span class="indicator-dot" style="background:var(--accent-emerald);"></span> Vehicle Edge (Waymo)</button>
-                    <button class="preset-tab" id="tab-chatgpt" onclick="setPresetContext('chatgpt')"><span class="indicator-dot" style="background:var(--accent-amber);"></span> Distributed Inference (ChatGPT)</button>
-                    <button class="preset-tab" id="tab-colossus" onclick="setPresetContext('colossus')"><span class="indicator-dot" style="background:var(--accent-blue);"></span> Megawatt Array (Colossus)</button>
-                </div>
+        <main>
+            <div class="section-title">Essays & Writing</div>
+            <ul class="item-list">
+                <li class="item">
+                    <a href="#">On Power Constraints in Megawatt-Scale Infrastructure</a>
+                    <span class="date">2026</span>
+                </li>
+                <li class="item">
+                    <a href="#">Dual-Use Hardware & Defense Deployment Bottlenecks</a>
+                    <span class="date">2026</span>
+                </li>
+            </ul>
 
-                <div class="slider-group">
-                    <div class="slider-meta-row">
-                        <span>Cluster Physical Footprint</span>
-                        <span id="lbl-racks" style="font-weight:600;">--</span>
-                    </div>
-                    <div class="slider-desc">Total deployed hardware chassis stacks housing computer elements.</div>
-                    <input type="range" id="field-racks" min="1" max="4000" step="10" value="1000" oninput="runNetworkPhysics()">
-                </div>
+            <div class="section-title">Field Notes & Observations</div>
+            <ul class="item-list">
+                <li class="item">
+                    <a href="#">Grid Interconnection Queues & Capital Intensity</a>
+                    <span class="date">Aug 2026</span>
+                </li>
+            </ul>
+        </main>
 
-                <div class="slider-group">
-                    <div class="slider-meta-row">
-                        <span>Thermal Density per Rack</span>
-                        <span id="lbl-power" style="font-weight:600;">--</span>
-                    </div>
-                    <div class="slider-desc">Localized electricity allocation required to support logic gates under peak load.</div>
-                    <input type="range" id="field-power" min="2" max="140" step="2" value="60" oninput="runNetworkPhysics()">
-                </div>
-
-                <div class="slider-group">
-                    <div class="slider-meta-row">
-                        <span>User Request Call Radius</span>
-                        <span id="lbl-distance" style="font-weight:600;">--</span>
-                    </div>
-                    <div class="slider-desc">Physical distance between where the action takes place and where the neural model rests.</div>
-                    <input type="range" id="field-distance" min="0" max="3000" step="25" value="400" oninput="runNetworkPhysics()">
-                </div>
-
-                <div class="topography-box">
-                    <div class="grid-mask"></div>
-                    <div id="spatial-canvas" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"></div>
-                </div>
-
-                <div class="readout-bar">
-                    <div class="readout-card">
-                        <div class="formula-tooltip">
-                            <div class="formula-title">Facility Interconnect Load</div>
-                            <strong>Formula:</strong><br>
-                            $$\text{MW} = \frac{\text{Racks} \times \text{kW/Rack}}{1000}$$<br><br>
-                            Quantifies total grid capacity drawn continuously. Scaled arrays hit structural regional power limits.
-                        </div>
-                        <div class="readout-number" id="read-mw">--</div>
-                        <div class="readout-label">Calculated Load</div>
-                    </div>
-
-                    <div class="readout-card">
-                        <div class="formula-tooltip">
-                            <div class="formula-title">True Execution Delay</div>
-                            <strong>Formula:</strong><br>
-                            $$\text{Latency} = \left(\frac{\text{Miles}}{100}\right) \times 1.6\text{ ms} + \left(\frac{\text{Racks}}{800}\right)$$<br><br>
-                            Calculates fiber-optic transmission constraints (speed of light in silica) compounded by intra-cluster network switches.
-                        </div>
-                        <div class="readout-number" id="read-latency">--</div>
-                        <div class="readout-label">Sync Latency</div>
-                    </div>
-
-                    <div class="readout-card">
-                        <div class="formula-tooltip">
-                            <div class="formula-title">Thermal Dissipation Vector</div>
-                            <strong>Formula:</strong><br>
-                            $$\text{PUE} = 1.04 + \left(\frac{\text{kW/Rack}}{500}\right) + \left(\frac{\text{Racks}}{40000}\right)$$<br><br>
-                            Tracks energy efficiency. Extreme server density results in a localized thermal tax for secondary heat rejection.
-                        </div>
-                        <div class="readout-number" id="read-thermal">--</div>
-                        <div class="readout-label">Thermal Efficiency</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-container">
-                <p class="panel-tag">📁 Topology Target Archetypes</p>
-                
-                <div class="directory-stack">
-                    <div class="directory-card" onclick="injectCardToSandbox(1, 4, 0, 'waymo')">
-                        <div>
-                            <div class="dir-title">Autonomous Vehicle Edge Vector (Waymo Archetype)</div>
-                            <div class="dir-sub">On-device inference array localized to the physical trunk chassis. Bypasses wide-area cell network hops to achieve zero safety-critical transmission delays.</div>
-                        </div>
-                        <div class="dir-spec-block">
-                            <div style="color:var(--accent-emerald);">Localized</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">1 Rack • <1 ms</div>
-                        </div>
-                    </div>
-
-                    <div class="directory-card" onclick="injectCardToSandbox(800, 45, 950, 'chatgpt')">
-                        <div>
-                            <div class="dir-title">Distributed Commercial Cloud Inference (ChatGPT Archetype)</div>
-                            <div class="dir-sub">User request hitting urban edge endpoints, dynamically routing across transcontinental dark-fiber infrastructure links to central processing data facility cores.</div>
-                        </div>
-                        <div class="dir-spec-block">
-                            <div style="color:var(--accent-amber);">Dynamic WAN</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">800 Racks • ~16 ms</div>
-                        </div>
-                    </div>
-
-                    <div class="directory-card" onclick="injectCardToSandbox(3150, 85, 25, 'colossus')">
-                        <div>
-                            <div class="dir-title">Monolithic Frontier Training Array (xAI Colossus)</div>
-                            <div class="dir-sub">Massive, contiguous physical hardware block relying on high-volume liquid manifold distribution pipelines. High concentrated utility grid interaction footprint.</div>
-                        </div>
-                        <div class="dir-spec-block">
-                            <div style="color:var(--accent-blue);">Massive Scale</div>
-                            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">3,150 Racks • 25 mi</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="footer-pipeline">
-            <span>Maintained independently as an open-source structural tracking framework.</span>
-            <a href="archive/index.html" class="legacy-link">View 2024 Legacy Archive</a>
+        <footer>
+            <span>Personal Platform</span>
+            <span>SF / Hanover</span>
         </footer>
     </div>
 
-    <script>
-        function runNetworkPhysics() {
-            const racks = parseInt(document.getElementById('field-racks').value);
-            const powerPerRack = parseInt(document.getElementById('field-power').value);
-            const distanceMiles = parseInt(document.getElementById('field-distance').value);
-
-            // Update user input metric readouts
-            document.getElementById('lbl-racks').innerText = racks.toLocaleString() + (racks === 1 ? " Rack" : " Racks");
-            document.getElementById('lbl-power').innerText = powerPerRack + " kW/rack";
-            document.getElementById('lbl-distance').innerText = distanceMiles.toLocaleString() + " Miles";
-
-            // 1. HARD INFRASTRUCTURE POWER LOGIC
-            const systemLoadMW = (racks * powerPerRack) / 1000;
-            
-            // 2. SPEED OF LIGHT SILICA FIBER DELAY + FABRIC BACKPLANE ROUTING hops
-            const fiberPropagationDelay = (distanceMiles / 100) * 1.6; 
-            const fabricSwitchOverhead = (racks / 800); 
-            const trueCalculatedLatency = Math.max(1, Math.round(fiberPropagationDelay + fabricSwitchOverhead));
-
-            // 3. THERMAL SPIKE DEGRADATION MODEL
-            const derivedPUE = 1.04 + (powerPerRack / 500) + (racks / 40000);
-            const thermalEfficiencyPercent = Math.max(55, Math.min(98, Math.round((1 / derivedPUE) * 100)));
-
-            // Inject metrics safely into UI readout blocks
-            document.getElementById('read-mw').innerText = systemLoadMW < 1 ? (systemLoadMW * 1000).toFixed(0) + " kW" : systemLoadMW.toFixed(1) + " MW";
-            document.getElementById('read-latency').innerText = trueCalculatedLatency + " ms";
-            document.getElementById('read-thermal').innerText = thermalEfficiencyPercent + "%";
-
-            // Determine active archetype profile layout context
-            let activePreset = 'custom';
-            const activeTab = document.querySelector('.preset-tab.active');
-            if (activeTab) activePreset = activeTab.id.replace('tab-', '');
-
-            // 4. ZOOMED OUT GEOMETRICAL DOT MATRIX CANVAS ENGINE
-            const canvas = document.getElementById('spatial-canvas');
-            canvas.innerHTML = '';
-
-            if (activePreset === 'waymo') {
-                // Waymo Node Visual layout: Single intensely centered high-efficiency point
-                const singleEdgeNode = document.createElement('div');
-                singleEdgeNode.className = 'hardware-dot';
-                singleEdgeNode.style.background = 'var(--accent-emerald)';
-                singleEdgeNode.style.boxShadow = '0 0 12px var(--accent-emerald)';
-                singleEdgeNode.style.transform = 'translate(0px, 0px) scale(2.5)';
-                canvas.appendChild(singleEdgeNode);
-            } else if (activePreset === 'chatgpt') {
-                // ChatGPT Node Visual Layout: Distant User node firing telemetry pulses to data cloud block
-                const userTerminal = document.createElement('div');
-                userTerminal.className = 'hardware-dot';
-                userTerminal.style.background = '#ffffff';
-                userTerminal.style.transform = 'translate(-80px, 10px) scale(1.5)';
-                userTerminal.style.boxShadow = '0 0 8px #ffffff';
-                canvas.appendChild(userTerminal);
-
-                // Sample cloud cluster blocks
-                for (let j = 0; j < 40; j++) {
-                    const cloudNode = document.createElement('div');
-                    cloudNode.className = 'hardware-dot';
-                    cloudNode.style.background = 'var(--accent-amber)';
-                    const x = 40 + (j % 6) * 8;
-                    const y = -20 + Math.floor(j / 6) * 8;
-                    cloudNode.style.transform = `translate(${x}px, ${y}px)`;
-                    canvas.appendChild(cloudNode);
-                }
-            } else {
-                // Megawatt Array Visual: Massive, zoomed-out uniform monolithic hardware matrix array
-                const sampleDisplayLimit = Math.min(racks, 240);
-                const gridWidthCols = Math.ceil(Math.sqrt(sampleDisplayLimit * 1.6));
-                const stepRadius = 5;
-
-                const startOffsetCentroidX = -((gridWidthCols - 1) * stepRadius) / 2;
-                const startOffsetCentroidY = -((Math.ceil(sampleDisplayLimit / gridWidthCols) - 1) * stepRadius) / 2;
-
-                for (let i = 0; i < sampleDisplayLimit; i++) {
-                    const arrayDot = document.createElement('div');
-                    arrayDot.className = 'hardware-dot';
-
-                    const col = i % gridWidthCols;
-                    const row = Math.floor(i / gridWidthCols);
-                    const x = startOffsetCentroidX + (col * stepRadius);
-                    const y = startOffsetCentroidY + (row * stepRadius);
-
-                    if (powerPerRack >= 90) {
-                        arrayDot.style.background = 'var(--accent-blue)';
-                        arrayDot.style.boxShadow = '0 0 3px rgba(59, 130, 246, 0.5)';
-                    } else {
-                        arrayDot.style.background = '#4b5563';
-                    }
-
-                    arrayDot.style.transform = `translate(${x}px, ${y}px)`;
-                    canvas.appendChild(arrayDot);
-                }
-            }
-        }
-
-        function setPresetContext(presetId) {
-            document.querySelectorAll('.preset-tab').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tab-${presetId}`).classList.add('active');
-
-            if (presetId === 'waymo') {
-                updateSliderInputs(1, 4, 0);
-            } else if (presetId === 'chatgpt') {
-                updateSliderInputs(800, 45, 950);
-            } else if (presetId === 'colossus') {
-                updateSliderInputs(3150, 85, 25);
-            }
-        }
-
-        function injectCardToSandbox(r, p, d, targetTabKey) {
-            setPresetContext(targetTabKey);
-            updateSliderInputs(r, p, d);
-        }
-
-        function updateSliderInputs(r, p, d) {
-            document.getElementById('field-racks').value = r;
-            document.getElementById('field-power').value = p;
-            document.getElementById('field-distance').value = d;
-            runNetworkPhysics();
-        }
-
-        // Trigger foundational physics parameters runtime sequence
-        runNetworkPhysics();
-    </script>
 </body>
 </html>
