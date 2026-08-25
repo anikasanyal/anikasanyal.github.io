@@ -4,166 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Electric Outlet</title>
+    
+    <link rel="icon" type="image/png" href="logo_icon.png">
+
     <style>
         :root {
-            --bg: #fafafa;
-            --text: #171717;
-            --muted: #737373;
-            --border: #e5e5e5;
-            --link: #2563eb;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #0a0a0a;
-                --text: #eddada;
-                --text: #f5f5f5;
-                --muted: #a3a3a3;
-                --border: #262626;
-                --link: #60a5fa;
-            }
+            --bg-main: #09090b;
+            --panel-bg: #121216;
+            --border-muted: #27272a;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --brand-blue: #2563eb;
+            --link-hover: #60a5fa;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 48px 24px;
             display: flex;
             justify-content: center;
         }
 
-        .container {
+        .site-container {
             width: 100%;
-            max-width: 620px;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
         }
 
+        /* Header & Logo */
         header {
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-bottom: 1px solid var(--border-muted);
+            padding-bottom: 24px;
         }
 
-        h1 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.01em;
+        .logo-wrapper img {
+            height: 32px;
+            width: auto;
+            display: block;
         }
 
-        .bio {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 0;
-        }
-
+        /* Navigation Tabs */
         nav {
             display: flex;
-            gap: 16px;
-            margin-top: 20px;
+            gap: 20px;
             font-size: 13px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-        }
-
-        nav a {
-            color: var(--text);
-            text-decoration: none;
             font-weight: 500;
         }
 
-        nav a:hover {
-            color: var(--link);
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s ease;
+            padding-bottom: 4px;
         }
 
-        .section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--muted);
-            margin: 32px 0 16px 0;
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+            border-bottom: 2px solid var(--brand-blue);
         }
 
-        .item-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .item {
+        /* Main Content Styling */
+        main {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            flex-direction: column;
+            gap: 32px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .intro-text p {
+            margin: 0 0 16px 0;
+            color: var(--text-main);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
             margin-bottom: 12px;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 550px) {
+            .focus-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .focus-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-muted);
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .focus-card strong {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 4px;
             font-size: 14px;
         }
 
-        .item a {
-            color: var(--text);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border);
+        .focus-card span {
+            color: var(--text-muted);
+            line-height: 1.4;
         }
 
-        .item a:hover {
-            border-color: var(--text);
-        }
-
-        .date {
-            font-size: 12px;
-            color: var(--muted);
-            font-family: ui-monospace, monospace;
+        /* Empty State for Essays Tab Placeholder */
+        .essays-placeholder {
+            background: var(--panel-bg);
+            border: 1px dashed var(--border-muted);
+            padding: 32px;
+            border-radius: 6px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
         }
 
         footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--muted);
+            border-top: 1px solid var(--border-muted);
+            padding-top: 24px;
             display: flex;
             justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: ui-monospace, SFMono-Regular, monospace;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="site-container">
+        
         <header>
-            <h1>The Electric Outlet</h1>
-            <p class="bio">Notes on physical compute, defense tech, energy systems, and capital allocation.</p>
+            <div class="logo-wrapper">
+                <img src="full_logo_color.png" alt="The Electric Outlet">
+            </div>
+            
             <nav>
-                <a href="#essays">Essays</a>
-                <a href="#notes">Working Memos</a>
-                <a href="#about">About</a>
+                <a href="index.html" class="active">Home</a>
+                <a href="#essays-section">Essays</a>
+                <a href="archive/index.html">2024 Legacy Archive</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
             </nav>
         </header>
 
         <main>
-            <div class="section-title">Essays & Writing</div>
-            <ul class="item-list">
-                <li class="item">
-                    <a href="#">On Power Constraints in Megawatt-Scale Infrastructure</a>
-                    <span class="date">2026</span>
-                </li>
-                <li class="item">
-                    <a href="#">Dual-Use Hardware & Defense Deployment Bottlenecks</a>
-                    <span class="date">2026</span>
-                </li>
-            </ul>
+            <section class="intro-text">
+                <p>
+                    <strong>The Electric Outlet</strong> is a personal research notebook exploring the physical bottlenecks of technology, hardware infrastructure, energy markets, and capital strategy.
+                </p>
+                <p style="color: var(--text-muted);">
+                    As systems grow more complex, performance is increasingly constrained by the real world—power grid interconnections, wide-area network latency, thermal dynamics, and manufacturing supply chains. This platform serves as a space to document field notes, operational breakdowns, and evolving theses.
+                </p>
+            </section>
 
-            <div class="section-title">Field Notes & Observations</div>
-            <ul class="item-list">
-                <li class="item">
-                    <a href="#">Grid Interconnection Queues & Capital Intensity</a>
-                    <span class="date">Aug 2026</span>
-                </li>
-            </ul>
+            <section>
+                <div class="section-label">Active Research & Interest Vectors</div>
+                <div class="focus-grid">
+                    <div class="focus-card">
+                        <strong>⚡ Physical Compute & Grid Scale</strong>
+                        <span>Mapping megawatt-scale power distribution, substation queuing, and liquid-cooling hardware bring-up.</span>
+                    </div>
+                    <div class="focus-card">
+                        <strong>🛡️ Defense & Sovereign Tech</strong>
+                        <span>Analyzing dual-use hardware supply chains, autonomous edge systems, and deployment operational logistics.</span>
+                    </div>
+                    <div class="focus-card">
+                        <strong>📈 Capital Allocation & Strategy</strong>
+                        <span>Evaluating early-stage venture thesis formation, infrastructure economics, and scaling bottlenecks.</span>
+                    </div>
+                    <div class="focus-card">
+                        <strong>🌐 Distributed Systems & Networking</strong>
+                        <span>Exploring optical switch fabrics, Wide-Area Network (WAN) routing, and network Points-of-Presence (PoPs).</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="essays-section">
+                <div class="section-label">Essays & Long-Form Writing</div>
+                <div class="essays-placeholder">
+                    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Essays</div>
+                    Long-form pieces on infrastructure economics and hardware deployment will be published here. In the meantime, past pieces can be viewed in the <a href="archive/index.html" style="color: var(--brand-blue); text-decoration: none;">2024 Legacy Archive</a>.
+                </div>
+            </section>
         </main>
 
         <footer>
-            <span>Personal Platform</span>
-            <span>SF / Hanover</span>
+            <span>The Electric Outlet</span>
+            <span>San Francisco Bay Area</span>
         </footer>
+
     </div>
 
 </body>
