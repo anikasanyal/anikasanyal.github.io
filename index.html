@@ -7,12 +7,14 @@
 
     <style>
         :root {
-            --bg-main: #08080a;
-            --panel-bg: #121216;
-            --border-muted: #222228;
+            --bg-main: #070709;
+            --panel-bg: #0e0e12;
+            --border-muted: #21212c;
             --text-main: #f4f4f5;
-            --text-muted: #94949d;
-            --accent-warm: #f43f5e; /* Sunset rose accent */
+            --text-muted: #8b8b9e;
+            --accent-rose: #f43f5e; 
+            --accent-amber: #fbbf24;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         }
 
         body {
@@ -20,25 +22,35 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0 0 60px 0;
+            padding: 0 0 80px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Atmospheric Sunset Banner Hero */
+        /* Atmospheric Sunset Ombre Banner with Retro Engineering Grid */
         .hero-banner {
             width: 100%;
-            height: 260px;
-            background: linear-gradient(135deg, #1c1428 0%, #2e1525 35%, #4a1c1d 65%, #231215 100%);
-            background-size: cover;
-            background-position: center;
+            height: 280px;
+            background: linear-gradient(135deg, #181024 0%, #2a1222 35%, #42181b 65%, #1d0f13 100%);
             position: relative;
             display: flex;
             align-items: flex-end;
-            padding: 0 24px 28px 24px;
+            padding: 0 24px 32px 24px;
             box-sizing: border-box;
             border-bottom: 1px solid var(--border-muted);
+            overflow: hidden;
+        }
+
+        /* Faint technical engineering grid overlay */
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
         }
 
         .hero-banner::after {
@@ -60,11 +72,35 @@
             z-index: 2;
         }
 
+        .hero-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-tag::before {
+            content: '●';
+            font-size: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
         .hero-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 500;
             color: #ffffff;
-            margin: 0 0 4px 0;
+            margin: 0 0 6px 0;
             letter-spacing: -0.02em;
         }
 
@@ -80,12 +116,12 @@
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            padding: 32px 24px 0 24px;
+            gap: 44px;
+            padding: 36px 24px 0 24px;
             box-sizing: border-box;
         }
 
-        /* Navigation Links */
+        /* Clean Engineering Navigation */
         nav {
             display: flex;
             flex-wrap: wrap;
@@ -124,25 +160,47 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             color: var(--text-muted);
-            font-family: ui-monospace, SFMono-Regular, monospace;
+            font-family: var(--font-mono);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Spotlight Card for The Electric Outlet */
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-muted);
+        }
+
+        /* Retro-Modern Spotlight Card */
         .spotlight-card {
             background: var(--panel-bg);
             border: 1px solid var(--border-muted);
-            padding: 24px;
-            border-radius: 8px;
+            padding: 26px;
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            transition: border-color 0.2s ease;
+            position: relative;
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
         .spotlight-card:hover {
             border-color: #3f3f46;
+        }
+
+        /* Vintage terminal corner accents */
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-rose);
         }
 
         .spotlight-title {
@@ -151,8 +209,8 @@
             color: #ffffff;
             text-decoration: none;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
         }
 
         .spotlight-title:hover {
@@ -166,46 +224,50 @@
         }
 
         .archive-link {
-            font-size: 12.5px;
+            font-family: var(--font-mono);
+            font-size: 12px;
             color: var(--text-muted);
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             margin-top: 4px;
-            display: inline-block;
         }
 
         .archive-link:hover {
             color: var(--text-main);
-            text-decoration: underline;
         }
 
         /* Essays Placeholder */
         .content-placeholder {
             background: var(--panel-bg);
             border: 1px dashed var(--border-muted);
-            padding: 24px;
-            border-radius: 8px;
+            padding: 26px;
+            border-radius: 6px;
             text-align: center;
             color: var(--text-muted);
             font-size: 13px;
+            font-family: var(--font-mono);
         }
 
         footer {
-            margin-top: 20px;
+            margin-top: 30px;
             border-top: 1px solid var(--border-muted);
             padding-top: 24px;
             display: flex;
             justify-content: space-between;
             font-size: 12px;
             color: var(--text-muted);
-            font-family: ui-monospace, SFMono-Regular, monospace;
+            font-family: var(--font-mono);
         }
     </style>
 </head>
 <body>
 
-    <!-- Sunset Ombre Atmosphere Banner -->
+    <!-- Sunset Ombre Atmosphere Banner with Engineering Grid -->
     <div class="hero-banner">
         <div class="hero-content">
+            <div class="hero-tag">SYS.ROOT // ANIKASANYAL.GITHUB.IO</div>
             <h1 class="hero-title">Anika Sanyal</h1>
             <p class="hero-subtitle">Hard-tech systems, physical infrastructure, and operations.</p>
         </div>
@@ -216,8 +278,8 @@
         <!-- Clean Navigation -->
         <nav>
             <a href="index.html" style="color: var(--text-main);">Home</a>
-            <a href="#essays">Essays</a>
             <a href="#outlet">The Electric Outlet</a>
+            <a href="#essays">Essays</a>
             <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
             <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </nav>
@@ -237,13 +299,14 @@
             <div class="section-label">Featured Research Hub</div>
             <div class="spotlight-card">
                 <a href="theelectricoutlet/" class="spotlight-title">
-                    The Electric Outlet →
+                    <span>The Electric Outlet</span>
+                    <span style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-rose);">[ACTIVE SANDBOX]</span>
                 </a>
                 <span class="spotlight-desc">
-                    A specialized sandbox housing monographs, failure autopsies, and kill-switch logs exploring physical compute, energy markets, and hard-tech infrastructure.
+                    A specialized research notebook housing monographs, failure autopsies, and kill-switch logs exploring physical compute, energy markets, and hard-tech infrastructure.
                 </span>
                 <div>
-                    <a href="archive/index.html" class="archive-link">View 2024 Legacy Archive →</a>
+                    <a href="archive/index.html" class="archive-link">→ Access 2024 Legacy Archive</a>
                 </div>
             </div>
         </section>
@@ -252,14 +315,14 @@
         <section id="essays">
             <div class="section-label">Essays & Field Notes</div>
             <div class="content-placeholder">
-                <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Pieces</div>
-                Long-form personal reflections and mental models will be published here soon.
+                <div style="color: var(--text-main); margin-bottom: 4px; font-weight: 500;">// COMING SOON</div>
+                Long-form personal reflections and mental models will be published here.
             </div>
         </section>
 
         <footer>
-            <span>Anika Sanyal</span>
-            <span>San Francisco Bay Area</span>
+            <span>[ANIKA SANYAL]</span>
+            <span>SAN FRANCISCO BAY AREA</span>
         </footer>
 
     </div>
