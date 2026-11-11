@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anika Sanyal</title>
-    
-    <link rel="icon" type="image/png" href="logo_icon.png">
 
     <style>
         :root {
-            --bg-main: #09090b;
+            --bg-main: #08080a;
             --panel-bg: #121216;
-            --border-muted: #27272a;
+            --border-muted: #222228;
             --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --brand-blue: #2563eb;
-            --link-hover: #60a5fa;
+            --text-muted: #94949d;
+            --accent-warm: #f43f5e; /* Sunset rose accent */
         }
 
         body {
@@ -23,67 +20,104 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 48px 24px;
+            padding: 0 0 60px 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
+        /* Atmospheric Sunset Banner Hero */
+        .hero-banner {
+            width: 100%;
+            height: 260px;
+            background: linear-gradient(135deg, #1c1428 0%, #2e1525 35%, #4a1c1d 65%, #231215 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 24px 28px 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-muted);
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-main), transparent);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Main Container */
         .site-container {
             width: 100%;
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            gap: 36px;
+            gap: 40px;
+            padding: 32px 24px 0 24px;
+            box-sizing: border-box;
         }
 
-        /* Header & Logo */
-        header {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            border-bottom: 1px solid var(--border-muted);
-            padding-bottom: 24px;
-        }
-
-        .logo-wrapper img {
-            height: 32px;
-            width: auto;
-            display: block;
-        }
-
-        /* Navigation Tabs */
+        /* Navigation Links */
         nav {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             font-size: 13px;
             font-weight: 500;
+            border-bottom: 1px solid var(--border-muted);
+            padding-bottom: 20px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
             transition: color 0.15s ease;
-            padding-bottom: 4px;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover {
             color: var(--text-main);
-            border-bottom: 2px solid var(--brand-blue);
         }
 
-        /* Main Content Styling */
-        main {
+        /* Content Sections */
+        section {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 16px;
             line-height: 1.7;
             font-size: 15px;
         }
 
-        .intro-text p {
-            margin: 0 0 16px 0;
-            color: var(--text-main);
+        p {
+            margin: 0;
+            color: #d4d4d8;
         }
 
         .section-label {
@@ -92,52 +126,71 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--text-muted);
-            margin-bottom: 12px;
             font-family: ui-monospace, SFMono-Regular, monospace;
         }
 
-        .focus-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        @media (min-width: 550px) {
-            .focus-grid { grid-template-columns: 1fr 1fr; }
-        }
-
-        .focus-card {
+        /* Spotlight Card for The Electric Outlet */
+        .spotlight-card {
             background: var(--panel-bg);
             border: 1px solid var(--border-muted);
-            padding: 16px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 24px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color 0.2s ease;
         }
 
-        .focus-card strong {
-            display: block;
+        .spotlight-card:hover {
+            border-color: #3f3f46;
+        }
+
+        .spotlight-title {
+            font-size: 16px;
+            font-weight: 600;
             color: #ffffff;
-            margin-bottom: 4px;
-            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .focus-card span {
+        .spotlight-title:hover {
+            color: #60a5fa;
+        }
+
+        .spotlight-desc {
+            font-size: 13.5px;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Placeholder boxes */
+        .archive-link {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .archive-link:hover {
+            color: var(--text-main);
+            text-decoration: underline;
+        }
+
+        /* Essays Placeholder */
         .content-placeholder {
             background: var(--panel-bg);
             border: 1px dashed var(--border-muted);
             padding: 24px;
-            border-radius: 6px;
+            border-radius: 8px;
             text-align: center;
             color: var(--text-muted);
             font-size: 13px;
         }
 
         footer {
+            margin-top: 20px;
             border-top: 1px solid var(--border-muted);
             padding-top: 24px;
             display: flex;
@@ -150,70 +203,63 @@
 </head>
 <body>
 
+    <!-- Sunset Ombre Atmosphere Banner -->
+    <div class="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title">Anika Sanyal</h1>
+            <p class="hero-subtitle">Hard-tech systems, physical infrastructure, and operations.</p>
+        </div>
+    </div>
+
     <div class="site-container">
         
-        <header>
-            <div class="logo-wrapper">
-                <img src="full_logo_color.png" alt="The Electric Outlet">
+        <!-- Clean Navigation -->
+        <nav>
+            <a href="index.html" style="color: var(--text-main);">Home</a>
+            <a href="#essays">Essays</a>
+            <a href="#outlet">The Electric Outlet</a>
+            <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
+            <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="mailto:your-email@domain.com">Request Resume</a>
+        </nav>
+
+        <!-- Bio Introduction -->
+        <section>
+            <p>
+                Independent researcher and systems builder focused on physical AI, energy bottlenecks, and hardware infrastructure. Ex-Tesla & Palantir. MEng in Computer Engineering (Dartmouth).
+            </p>
+            <p style="color: var(--text-muted);">
+                As systems grow more complex, performance is increasingly constrained by the real world. This site serves as my digital home base for personal essays and independent R&D.
+            </p>
+        </section>
+
+        <!-- The Electric Outlet Spotlight Section -->
+        <section id="outlet">
+            <div class="section-label">Featured Research Hub</div>
+            <div class="spotlight-card">
+                <a href="theelectricoutlet/" class="spotlight-title">
+                    The Electric Outlet →
+                </a>
+                <span class="spotlight-desc">
+                    A specialized sandbox housing monographs, failure autopsies, and kill-switch logs exploring physical compute, energy markets, and hard-tech infrastructure.
+                </span>
+                <div>
+                    <a href="archive/index.html" class="archive-link">View 2024 Legacy Archive →</a>
+                </div>
             </div>
-            
-            <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="#essays">Essays</a>
-                <a href="#research">The Electric Outlet</a>
-                <a href="archive/index.html">2024 Legacy Archive</a>
-                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
-                <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
-                <a href="mailto:your-email@domain.com">Request Resume</a>
-            </nav>
-        </header>
+        </section>
 
-        <main>
-            <!-- Personal Bio Landing Intro -->
-            <section class="intro-text">
-                <p>
-                    Hi, I'm <strong>Anika Sanyal</strong>. I’m an independent researcher and systems builder focused on physical AI, energy bottlenecks, and hardware infrastructure. Ex-Tesla & Palantir. BA Psychology (UC Berkeley). MEng in Computer Engineering (Dartmouth).
-                </p>
-                <p style="color: var(--text-muted);">
-                    As systems grow more complex, performance is increasingly constrained by the real world. This site serves as my digital home base for personal essays and <strong>The Electric Outlet</strong>—my specialized R&D sandbox housing monographs and failure autopsies.
-                </p>
-            </section>
-
-            <!-- Active Research Vectors (The Electric Outlet Hub) -->
-            <section id="research">
-                <div class="section-label">The Electric Outlet — Active Research Vectors</div>
-                <div class="focus-grid">
-                    <div class="focus-card">
-                        <strong>Physical Compute & AI Infrastructure</strong>
-                        <span>Data center deployment, power grids, thermal limits, and site lifecycles.</span>
-                    </div>
-                    <div class="focus-card">
-                        <strong>Defense & Sovereign Tech</strong>
-                        <span>Dual-use hardware, autonomous edge systems, and geopolitical operational logistics.</span>
-                    </div>
-                    <div class="focus-card">
-                        <strong>Capital Allocation & Strategy</strong>
-                        <span>Early-stage venture thesis, infrastructure economics, and organizational scaling.</span>
-                    </div>
-                    <div class="focus-card">
-                        <strong>Systems, Observations & Anything Really</strong>
-                        <span>First-principles breakdowns of real-world physical constraints.</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Essays Section (Paul Graham style index) -->
-            <section id="essays">
-                <div class="section-label">Essays & Field Notes</div>
-                <div class="content-placeholder">
-                    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Pieces</div>
-                    Long-form personal reflections and mental models will be published here. Check out <a href="archive/index.html" style="color: var(--brand-blue); text-decoration: none;">The Electric Outlet 2024 Legacy Archive</a> in the meantime.
-                </div>
-            </section>
-        </main>
+        <!-- Essays Section -->
+        <section id="essays">
+            <div class="section-label">Essays & Field Notes</div>
+            <div class="content-placeholder">
+                <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Pieces</div>
+                Long-form personal reflections and mental models will be published here soon.
+            </div>
+        </section>
 
         <footer>
-            <span>Anika Sanyal · The Electric Outlet</span>
+            <span>Anika Sanyal</span>
             <span>San Francisco Bay Area</span>
         </footer>
 
