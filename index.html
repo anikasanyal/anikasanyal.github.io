@@ -7,11 +7,12 @@
 
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --panel-bg: #131318;
-            --border-muted: #22222a;
+            --bg-main: #060608;
+            --panel-bg: rgba(18, 18, 24, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.08);
             --text-main: #f4f4f5;
             --text-muted: #9494a0;
+            --accent-glow: rgba(244, 63, 94, 0.15);
         }
 
         body {
@@ -19,23 +20,37 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0 0 80px 0;
+            padding: 0 0 100px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* Clean Atmospheric Sunset Ombre Banner (No Grids) */
+        /* Vibrant Glassmorphism Hero with Dynamic Sunset Ombre Glow */
         .hero-banner {
             width: 100%;
-            height: 260px;
-            background: linear-gradient(135deg, #20132d 0%, #35162a 35%, #521c1f 65%, #261217 100%);
+            min-height: 320px;
+            background: linear-gradient(135deg, #1b0f2a 0%, #3a122a 35%, #59191d 65%, #220e15 100%);
             position: relative;
             display: flex;
             align-items: flex-end;
-            padding: 0 24px 32px 24px;
+            padding: 40px 24px 36px 24px;
             box-sizing: border-box;
-            border-bottom: 1px solid var(--border-muted);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        /* Glowing ambient light effect */
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(244,63,94,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .hero-banner::after {
@@ -44,7 +59,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100px;
+            height: 120px;
             background: linear-gradient(to top, var(--bg-main), transparent);
             pointer-events: none;
         }
@@ -57,19 +72,30 @@
             z-index: 2;
         }
 
+        .hero-tag {
+            font-size: 11.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #fb7185;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
         .hero-title {
-            font-size: 1.7rem;
-            font-weight: 500;
+            font-size: 2.2rem;
+            font-weight: 600;
             color: #ffffff;
-            margin: 0 0 6px 0;
-            letter-spacing: -0.02em;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.03em;
         }
 
         .hero-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: 1.05rem;
+            color: #d4d4d8;
             margin: 0;
             font-weight: 400;
+            line-height: 1.5;
         }
 
         /* Main Container */
@@ -78,39 +104,39 @@
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            padding: 36px 24px 0 24px;
+            gap: 48px;
+            padding: 40px 24px 0 24px;
             box-sizing: border-box;
         }
 
-        /* Elegant Navigation */
+        /* Floating Glass Navigation Bar */
         nav {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
             font-size: 13.5px;
-            font-weight: 400;
-            border-bottom: 1px solid var(--border-muted);
-            padding-bottom: 20px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 22px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            transition: color 0.15s ease;
+            transition: color 0.2s ease;
         }
 
         nav a:hover {
-            color: var(--text-main);
+            color: #ffffff;
         }
 
         /* Content Sections */
         section {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            line-height: 1.75;
-            font-size: 15px;
+            gap: 18px;
+            line-height: 1.8;
+            font-size: 15.5px;
         }
 
         p {
@@ -119,32 +145,50 @@
         }
 
         .section-label {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
             color: var(--text-muted);
         }
 
-        /* Smooth Editorial Spotlight Card */
+        /* Glassmorphism Spotlight Card */
         .spotlight-card {
             background: var(--panel-bg);
-            border: 1px solid var(--border-muted);
-            padding: 28px;
-            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            padding: 32px;
+            border-radius: 14px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: border-color 0.2s ease, transform 0.2s ease;
+            gap: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #f43f5e, #fbbf24);
+            opacity: 0.8;
         }
 
         .spotlight-card:hover {
-            border-color: #3f3f46;
+            border-color: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.1);
         }
 
         .spotlight-title {
-            font-size: 17px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
             color: #ffffff;
             text-decoration: none;
             display: flex;
@@ -153,44 +197,72 @@
         }
 
         .spotlight-title:hover {
-            color: #93c5fd;
+            color: #fda4af;
         }
 
         .spotlight-desc {
-            font-size: 14px;
+            font-size: 14.5px;
             color: var(--text-muted);
             line-height: 1.6;
         }
 
         .archive-link {
-            font-size: 13px;
-            color: var(--text-muted);
+            font-size: 13.5px;
+            color: #f43f5e;
             text-decoration: none;
             display: inline-block;
-            margin-top: 4px;
-            transition: color 0.15s ease;
+            margin-top: 6px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
         }
 
         .archive-link:hover {
-            color: var(--text-main);
+            opacity: 0.8;
             text-decoration: underline;
         }
 
-        /* Essays Placeholder */
-        .content-placeholder {
+        /* Writing Grid (Substack Continuity style like Nikhil's) */
+        .writing-preview {
             background: var(--panel-bg);
-            border: 1px solid var(--border-muted);
-            padding: 28px;
-            border-radius: 10px;
-            text-align: center;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            padding: 24px 28px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .writing-preview:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .writing-meta {
+            font-size: 12px;
             color: var(--text-muted);
-            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .writing-headline {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .writing-snippet {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         footer {
-            margin-top: 40px;
-            border-top: 1px solid var(--border-muted);
-            padding-top: 24px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 28px;
             display: flex;
             justify-content: space-between;
             font-size: 12.5px;
@@ -200,59 +272,63 @@
 </head>
 <body>
 
-    <!-- Atmospheric Sunset Gradient Banner -->
+    <!-- Vibrant Sunset Gradient Banner -->
     <div class="hero-banner">
         <div class="hero-content">
+            <span class="hero-tag">Systems & Infrastructure</span>
             <h1 class="hero-title">Anika Sanyal</h1>
-            <p class="hero-subtitle">Hard-tech systems, physical infrastructure, and operations.</p>
+            <p class="hero-subtitle">Building physical AI infrastructure, high-scale power grids, and hardware systems.</p>
         </div>
     </div>
 
     <div class="site-container">
         
-        <!-- Clean Navigation -->
+        <!-- Navigation -->
         <nav>
             <a href="index.html" style="color: var(--text-main);">Home</a>
             <a href="#outlet">The Electric Outlet</a>
-            <a href="#essays">Essays</a>
+            <a href="#writing">Writing</a>
             <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
             <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </nav>
 
-        <!-- Bio Introduction -->
+        <!-- Bio Intro -->
         <section>
             <p>
                 Independent researcher and systems builder focused on physical AI, energy bottlenecks, and hardware infrastructure. Ex-Tesla & Palantir. MEng in Computer Engineering (Dartmouth).
             </p>
             <p style="color: var(--text-muted);">
-                As systems grow more complex, performance is increasingly constrained by the real world. This site serves as my digital home base for personal essays and independent R&D.
+                As systems grow more complex, performance is increasingly constrained by the real world. This site serves as my digital home base for deep-dive research, systems autopsies, and writing.
             </p>
         </section>
 
-        <!-- The Electric Outlet Spotlight Section -->
+        <!-- The Electric Outlet Featured Hub (Glass Card with Glowing Accent) -->
         <section id="outlet">
-            <div class="section-label">Featured Research Hub</div>
+            <div class="section-label">Featured Research Sandbox</div>
             <div class="spotlight-card">
                 <a href="theelectricoutlet/" class="spotlight-title">
                     <span>The Electric Outlet</span>
-                    <span style="font-size: 13px; color: var(--text-muted); font-weight: 400;">Active Sandbox →</span>
+                    <span style="font-size: 13px; color: #fb7185; font-weight: 500;">Explore Sandbox →</span>
                 </a>
                 <span class="spotlight-desc">
                     A specialized research notebook housing monographs, failure autopsies, and kill-switch logs exploring physical compute, energy markets, and hard-tech infrastructure.
                 </span>
                 <div>
-                    <a href="archive/index.html" class="archive-link">View 2024 Legacy Archive</a>
+                    <a href="archive/index.html" class="archive-link">View 2024 Legacy Archive →</a>
                 </div>
             </div>
         </section>
 
-        <!-- Essays Section -->
-        <section id="essays">
-            <div class="section-label">Essays & Field Notes</div>
-            <div class="content-placeholder">
-                <div style="color: var(--text-main); margin-bottom: 4px; font-weight: 500;">Forthcoming Pieces</div>
-                Long-form personal reflections and mental models will be published here soon.
-            </div>
+        <!-- Writing / Substack Continuity Section (Like Nikhil's writing feed) -->
+        <section id="writing">
+            <div class="section-label">Writing & Substack Continuity</div>
+            <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener" class="writing-preview">
+                <div class="writing-meta">Substack · Recent Field Notes</div>
+                <div class="writing-headline">The Physics of Grid Resilience & Fast Charging Integration</div>
+                <div class="writing-snippet">
+                    Exploring how massive DC fast-charging networks create intense power-grid loads, and why integrating intermittent renewables requires continuous power quality monitoring and harmonic distortion tracking.
+                </div>
+            </a>
         </section>
 
         <footer>
