@@ -7,102 +7,78 @@
 
     <style>
         :root {
-            --bg-deep: #030305;
-            --surface: #0a0a0f;
-            --blueprint-grid: rgba(59, 130, 246, 0.04);
-            --border-line: rgba(255, 255, 255, 0.12);
-            --border-highlight: rgba(244, 63, 94, 0.4);
-            --text-main: #ededf0;
-            --text-muted: #8e8e9e;
-            --accent-red: #f43f5e;
-            --accent-blue: #3b82f6;
-            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --bg-main: #0c0c0e;
+            --surface: #141418;
+            --border-subtle: #272730;
+            --text-main: #f4f4f6;
+            --text-muted: #8e8e9c;
+            --accent: #f43f5e;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-main);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0 0 120px 0;
+            padding: 0 0 140px 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* Subtle blueprint grid overlay */
-            background-image: linear-gradient(var(--blueprint-grid) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--blueprint-grid) 1px, transparent 1px);
-            background-size: 40px 40px;
+            justify-content: center;
         }
 
-        .site-wrapper {
+        .page-container {
             width: 100%;
-            max-width: 760px;
-            padding: 60px 24px 0 24px;
+            max-width: 660px;
+            padding: 80px 24px 0 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 50px;
+            gap: 64px;
         }
 
-        /* Cinematic Operator Header */
+        /* Editorial Header */
         header {
-            border-bottom: 1px solid var(--border-line);
-            padding-bottom: 30px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
-        .operator-meta {
-            font-family: var(--font-mono);
-            font-size: 11.5px;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .operator-meta::before {
-            content: '■';
-            font-size: 9px;
-            color: var(--accent-red);
+        .hero-tag {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: -0.01em;
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+        }
+
+        .bio-text {
+            font-size: 17px;
+            line-height: 1.65;
+            color: #d0d0dc;
+            margin: 0;
+        }
+
+        .bio-text strong {
+            color: #ffffff;
             font-weight: 500;
-            color: #ffffff;
-            margin: 0;
-            letter-spacing: -0.03em;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        .manifesto {
-            font-size: 15.5px;
-            line-height: 1.7;
-            color: #c0c0cc;
-            margin: 0;
-            max-width: 680px;
-        }
-
-        .manifesto span {
-            color: #ffffff;
-            border-bottom: 1px dotted var(--accent-red);
-        }
-
-        /* Navigation Bar - Sharp & Monospace */
+        /* Fluid Navigation */
         nav {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            border-bottom: 1px solid var(--border-line);
-            padding-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-subtle);
         }
 
         nav a {
@@ -115,221 +91,148 @@
             color: #ffffff;
         }
 
-        /* Section Styling */
+        /* Section Block */
         section {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
-        .section-header {
-            font-family: var(--font-mono);
-            font-size: 11.5px;
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-line);
-            padding-bottom: 10px;
         }
 
-        /* The Electric Outlet Dossier Cards (Kill-Switch Autopsies) */
-        .dossier-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+        /* Cards List */
+        .card-stack {
+            display: flex;
+            flex-direction: column;
             gap: 16px;
         }
 
-        .dossier-card {
+        .editorial-card {
             background: var(--surface);
-            border: 1px solid var(--border-line);
-            padding: 24px;
-            position: relative;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 28px;
             text-decoration: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .dossier-card:hover {
-            border-color: var(--accent-red);
-            transform: translateY(-2px);
-        }
-
-        .dossier-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent-red);
-        }
-
-        .dossier-top {
             display: flex;
-            justify-content: space-between;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--accent-red);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .dossier-title {
-            font-size: 18px;
+        .editorial-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            background: #18181e;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .card-heading {
+            font-size: 19px;
             font-weight: 600;
             color: #ffffff;
-            margin: 0 0 8px 0;
+            margin: 0;
             letter-spacing: -0.01em;
+            line-height: 1.3;
         }
 
-        .dossier-desc {
-            font-size: 14px;
+        .card-excerpt {
+            font-size: 14.5px;
             color: var(--text-muted);
             line-height: 1.6;
             margin: 0;
         }
 
-        /* Personal Essays / Soft Track Cards */
-        .essay-card {
-            background: rgba(255,255,255,0.01);
-            border: 1px solid var(--border-line);
-            padding: 22px 24px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .essay-card:hover {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.2);
-        }
-
-        .essay-date {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .essay-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #ffffff;
-        }
-
-        .essay-snippet {
-            font-size: 13.5px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
         /* Footer */
         footer {
-            border-top: 1px solid var(--border-line);
-            padding-top: 30px;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 32px;
             display: flex;
             justify-content: space-between;
-            font-family: var(--font-mono);
-            font-size: 11.5px;
+            font-size: 13px;
             color: var(--text-muted);
         }
     </style>
 </head>
 <body>
 
-    <div class="site-wrapper">
+    <div class="page-container">
         
-        <!-- CINEMATIC HEADER -->
+        <!-- HEADER -->
         <header>
-            <div class="operator-meta">SYS.SPEC // Hard-Tech & Operations</div>
+            <div class="hero-tag">Hard-Tech & Operations</div>
             <h1>Anika Sanyal</h1>
-            <p class="manifesto">
-                I don't write code to build toy apps; I operate at the intersection of <span>physical AI</span>, high-scale energy grids, and hard infrastructure. Ex-Tesla & Palantir. MEng in Computer Engineering (Dartmouth). This site is where I break down complex systems, run failure autopsies, and think out loud.
+            <p class="bio-text">
+                I operate at the intersection of <strong>physical AI</strong>, energy grids, and hard infrastructure. Ex-Tesla & Palantir. MEng in Computer Engineering (Dartmouth). This is my digital notebook for system autopsies and personal essays.
             </p>
+            
+            <nav>
+                <a href="#teo" style="color: #ffffff;">The Electric Outlet</a>
+                <a href="#essays">Essays</a>
+                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
+                <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
+                <a href="mailto:your-email@domain.com">Request Resume</a>
+            </nav>
         </header>
-
-        <!-- OPERATOR NAV -->
-        <nav>
-            <a href="#teo" style="color: #ffffff;">The Electric Outlet ↗</a>
-            <a href="#essays">Personal Essays ↗</a>
-            <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
-            <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a href="mailto:your-email@domain.com">Request Resume</a>
-        </nav>
 
         <!-- SECTION 1: THE ELECTRIC OUTLET (KILL-SWITCH AUTOPSIES) -->
         <section id="teo">
-            <div class="section-header">
-                <span>The Electric Outlet // Kill-Switch Autopsies</span>
-                <span style="color: var(--accent-red);">[ACTIVE R&D SANDBOX]</span>
-            </div>
-
-            <div class="dossier-grid">
-                
-                <!-- Dossier Item 1 -->
-                <a href="theelectricoutlet/" class="dossier-card">
-                    <div class="dossier-top">
-                        <span>Autopsy #01 · Grid Infrastructure</span>
-                        <span>[BLACK MIRROR SCENARIO]</span>
-                    </div>
-                    <h2 class="dossier-title">The Megawatt Cascade: When Fast-Charging Meets Intermittent Grids</h2>
-                    <p class="dossier-desc">
-                        A first-principles autopsy of what happens when massive DC fast-charging networks place transient loads on legacy distribution transformers. Phase-locked loops, harmonic distortion, and grid collapse scenarios.
-                    </p>
-                </a>
-
-                <!-- Dossier Item 2 -->
-                <a href="theelectricoutlet/" class="dossier-card" style="border-left-color: var(--accent-blue);">
-                    <div class="dossier-top" style="color: var(--accent-blue);">
-                        <span>Autopsy #02 · Defense & Compute</span>
-                        <span>[SYSTEM FAILURE LOG]</span>
-                    </div>
-                    <h2 class="dossier-title">Siting AI Compute in the Physical World</h2>
-                    <p class="dossier-desc">
-                        Why sovereign AI and defense-adjacent infrastructure are hitting a hard thermodynamic wall. Power transmission bottlenecks, substation queues, and why software speed can't outrun substation lead times.
-                    </p>
-                </a>
-
-            </div>
+            <div class="section-title">The Electric Outlet · Kill-Switch Autopsies</div>
             
-            <div style="font-family: var(--font-mono); font-size: 12px; margin-top: 4px;">
-                <a href="archive/index.html" style="color: var(--text-muted); text-decoration: none;">→ View 2024 Legacy Archive and prior research logs</a>
+            <div class="card-stack">
+                <a href="theelectricoutlet/" class="editorial-card">
+                    <div class="card-meta">Grid Infrastructure · Autopsy #01</div>
+                    <h2 class="card-heading">The Megawatt Cascade: When Fast-Charging Meets Intermittent Grids</h2>
+                    <p class="card-excerpt">A first-principles breakdown of what happens when massive DC fast-charging networks place transient loads on legacy distribution transformers.</p>
+                </a>
+
+                <a href="theelectricoutlet/" class="editorial-card">
+                    <div class="card-meta">Defense & Compute · Autopsy #02</div>
+                    <h2 class="card-heading">Siting AI Compute in the Physical World</h2>
+                    <p class="card-excerpt">Why sovereign infrastructure hits a hard thermodynamic wall, and why software speed can't outrun substation lead times.</p>
+                </a>
+            </div>
+
+            <div style="font-size: 13px; margin-top: -4px;">
+                <a href="archive/index.html" style="color: var(--text-muted); text-decoration: none;">View 2024 Legacy Archive →</a>
             </div>
         </section>
 
-        <!-- SECTION 2: PERSONAL WRITINGS & SOFT FORMAT -->
+        <!-- SECTION 2: PERSONAL WRITINGS -->
         <section id="essays">
-            <div class="section-header">
-                <span>Reflections // Life & Industry</span>
-                <span>Substack Feed</span>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                
-                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener" class="essay-card">
-                    <div class="essay-date">NOV 2026 // FIELD NOTES</div>
-                    <div class="essay-title">Why operators burn out (and how to build systems that survive)</div>
-                    <div class="essay-snippet">On moving fast in high-volume manufacturing, the weight of physical stakes, and what working across Tesla and Palantir actually taught me about human resilience.</div>
+            <div class="section-title">Personal Reflections & Essays</div>
+            
+            <div class="card-stack">
+                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener" class="editorial-card">
+                    <div class="card-meta">Field Notes · Nov 2026</div>
+                    <h2 class="card-heading">Why operators burn out (and how to build systems that survive)</h2>
+                    <p class="card-excerpt">On moving fast in high-volume manufacturing, physical stakes, and what working across Tesla and Palantir taught me about resilience.</p>
                 </a>
 
-                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener" class="essay-card">
-                    <div class="essay-date">OCT 2026 // REFLECTION</div>
-                    <div class="essay-title">On moving to the Bay Area, old friendships, and building an independent life</div>
-                    <div class="essay-snippet">Random thoughts on geography, watching friends move to New York and Korea, and setting up an independent R&D sandbox from scratch.</div>
+                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener" class="editorial-card">
+                    <div class="card-meta">Reflection · Oct 2026</div>
+                    <h2 class="card-heading">On moving to the Bay Area, old friendships, and building an independent life</h2>
+                    <p class="card-excerpt">Random thoughts on geography, watching friends move away, and setting up an independent R&D sandbox from scratch.</p>
                 </a>
-
             </div>
         </section>
 
         <!-- FOOTER -->
         <footer>
-            <span>// ANIKA SANYAL. ALL SYSTEMS OPERATIONAL.</span>
-            <span>SAN FRANCISCO BAY AREA</span>
+            <span>Anika Sanyal</span>
+            <span>San Francisco Bay Area</span>
         </footer>
 
     </div>
