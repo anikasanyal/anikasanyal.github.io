@@ -7,14 +7,11 @@
 
     <style>
         :root {
-            --bg-main: #070709;
-            --panel-bg: #0e0e12;
-            --border-muted: #21212c;
+            --bg-main: #0a0a0c;
+            --panel-bg: #131318;
+            --border-muted: #22222a;
             --text-main: #f4f4f5;
-            --text-muted: #8b8b9e;
-            --accent-rose: #f43f5e; 
-            --accent-amber: #fbbf24;
-            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --text-muted: #9494a0;
         }
 
         body {
@@ -28,29 +25,17 @@
             align-items: center;
         }
 
-        /* Atmospheric Sunset Ombre Banner with Retro Engineering Grid */
+        /* Clean Atmospheric Sunset Ombre Banner (No Grids) */
         .hero-banner {
             width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, #181024 0%, #2a1222 35%, #42181b 65%, #1d0f13 100%);
+            height: 260px;
+            background: linear-gradient(135deg, #20132d 0%, #35162a 35%, #521c1f 65%, #261217 100%);
             position: relative;
             display: flex;
             align-items: flex-end;
             padding: 0 24px 32px 24px;
             box-sizing: border-box;
             border-bottom: 1px solid var(--border-muted);
-            overflow: hidden;
-        }
-
-        /* Faint technical engineering grid overlay */
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
         }
 
         .hero-banner::after {
@@ -72,32 +57,8 @@
             z-index: 2;
         }
 
-        .hero-tag {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--accent-amber);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .hero-tag::before {
-            content: '●';
-            font-size: 8px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
         .hero-title {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 500;
             color: #ffffff;
             margin: 0 0 6px 0;
@@ -105,9 +66,10 @@
         }
 
         .hero-subtitle {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
             margin: 0;
+            font-weight: 400;
         }
 
         /* Main Container */
@@ -116,18 +78,18 @@
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            gap: 44px;
+            gap: 40px;
             padding: 36px 24px 0 24px;
             box-sizing: border-box;
         }
 
-        /* Clean Engineering Navigation */
+        /* Elegant Navigation */
         nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            font-size: 13px;
-            font-weight: 500;
+            gap: 24px;
+            font-size: 13.5px;
+            font-weight: 400;
             border-bottom: 1px solid var(--border-muted);
             padding-bottom: 20px;
         }
@@ -147,7 +109,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            line-height: 1.7;
+            line-height: 1.75;
             font-size: 15px;
         }
 
@@ -157,34 +119,22 @@
         }
 
         .section-label {
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.06em;
             color: var(--text-muted);
-            font-family: var(--font-mono);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-muted);
-        }
-
-        /* Retro-Modern Spotlight Card */
+        /* Smooth Editorial Spotlight Card */
         .spotlight-card {
             background: var(--panel-bg);
             border: 1px solid var(--border-muted);
-            padding: 26px;
-            border-radius: 6px;
+            padding: 28px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            position: relative;
             transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -192,20 +142,9 @@
             border-color: #3f3f46;
         }
 
-        /* Vintage terminal corner accents */
-        .spotlight-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-rose);
-        }
-
         .spotlight-title {
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 17px;
+            font-weight: 500;
             color: #ffffff;
             text-decoration: none;
             display: flex;
@@ -214,60 +153,56 @@
         }
 
         .spotlight-title:hover {
-            color: #60a5fa;
+            color: #93c5fd;
         }
 
         .spotlight-desc {
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--text-muted);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .archive-link {
-            font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            display: inline-block;
             margin-top: 4px;
+            transition: color 0.15s ease;
         }
 
         .archive-link:hover {
             color: var(--text-main);
+            text-decoration: underline;
         }
 
         /* Essays Placeholder */
         .content-placeholder {
             background: var(--panel-bg);
-            border: 1px dashed var(--border-muted);
-            padding: 26px;
-            border-radius: 6px;
+            border: 1px solid var(--border-muted);
+            padding: 28px;
+            border-radius: 10px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 13px;
-            font-family: var(--font-mono);
+            font-size: 14px;
         }
 
         footer {
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid var(--border-muted);
             padding-top: 24px;
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 12.5px;
             color: var(--text-muted);
-            font-family: var(--font-mono);
         }
     </style>
 </head>
 <body>
 
-    <!-- Sunset Ombre Atmosphere Banner with Engineering Grid -->
+    <!-- Atmospheric Sunset Gradient Banner -->
     <div class="hero-banner">
         <div class="hero-content">
-            <div class="hero-tag">SYS.ROOT // ANIKASANYAL.GITHUB.IO</div>
             <h1 class="hero-title">Anika Sanyal</h1>
             <p class="hero-subtitle">Hard-tech systems, physical infrastructure, and operations.</p>
         </div>
@@ -300,13 +235,13 @@
             <div class="spotlight-card">
                 <a href="theelectricoutlet/" class="spotlight-title">
                     <span>The Electric Outlet</span>
-                    <span style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-rose);">[ACTIVE SANDBOX]</span>
+                    <span style="font-size: 13px; color: var(--text-muted); font-weight: 400;">Active Sandbox →</span>
                 </a>
                 <span class="spotlight-desc">
                     A specialized research notebook housing monographs, failure autopsies, and kill-switch logs exploring physical compute, energy markets, and hard-tech infrastructure.
                 </span>
                 <div>
-                    <a href="archive/index.html" class="archive-link">→ Access 2024 Legacy Archive</a>
+                    <a href="archive/index.html" class="archive-link">View 2024 Legacy Archive</a>
                 </div>
             </div>
         </section>
@@ -315,14 +250,14 @@
         <section id="essays">
             <div class="section-label">Essays & Field Notes</div>
             <div class="content-placeholder">
-                <div style="color: var(--text-main); margin-bottom: 4px; font-weight: 500;">// COMING SOON</div>
-                Long-form personal reflections and mental models will be published here.
+                <div style="color: var(--text-main); margin-bottom: 4px; font-weight: 500;">Forthcoming Pieces</div>
+                Long-form personal reflections and mental models will be published here soon.
             </div>
         </section>
 
         <footer>
-            <span>[ANIKA SANYAL]</span>
-            <span>SAN FRANCISCO BAY AREA</span>
+            <span>Anika Sanyal</span>
+            <span>San Francisco Bay Area</span>
         </footer>
 
     </div>
