@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Electric Outlet</title>
+    <title>Anika Sanyal</title>
     
     <link rel="icon" type="image/png" href="logo_icon.png">
 
@@ -54,6 +54,7 @@
         /* Navigation Tabs */
         nav {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
             font-size: 13px;
             font-weight: 500;
@@ -125,11 +126,11 @@
             line-height: 1.4;
         }
 
-        /* Empty State for Essays Tab Placeholder */
-        .essays-placeholder {
+        /* Placeholder boxes */
+        .content-placeholder {
             background: var(--panel-bg);
             border: 1px dashed var(--border-muted);
-            padding: 32px;
+            padding: 24px;
             border-radius: 6px;
             text-align: center;
             color: var(--text-muted);
@@ -158,24 +159,29 @@
             
             <nav>
                 <a href="index.html" class="active">Home</a>
-                <a href="#essays-section">Essays</a>
+                <a href="#essays">Essays</a>
+                <a href="#research">The Electric Outlet</a>
                 <a href="archive/index.html">2024 Legacy Archive</a>
+                <a href="https://anikasanyal.substack.com" target="_blank" rel="noopener">Substack ↗</a>
                 <a href="https://www.linkedin.com/in/anikasanyal/" target="_blank" rel="noopener">LinkedIn ↗</a>
+                <a href="mailto:your-email@domain.com">Request Resume</a>
             </nav>
         </header>
 
         <main>
+            <!-- Personal Bio Landing Intro -->
             <section class="intro-text">
                 <p>
-                    <strong>The Electric Outlet</strong> is a personal research notebook exploring the physical bottlenecks of technology, hardware infrastructure, energy markets, and capital strategy.
+                    Hi, I'm <strong>Anika Sanyal</strong>. I’m an independent researcher and systems builder focused on physical AI, energy bottlenecks, and hardware infrastructure. Ex-Tesla & Palantir. BA Psychology (UC Berkeley). MEng in Computer Engineering (Dartmouth).
                 </p>
                 <p style="color: var(--text-muted);">
-                    As systems grow more complex, performance is increasingly constrained by the real world. This platform serves as a space to document field notes, operational breakdowns, and evolving theses.
+                    As systems grow more complex, performance is increasingly constrained by the real world. This site serves as my digital home base for personal essays and <strong>The Electric Outlet</strong>—my specialized R&D sandbox housing monographs and failure autopsies.
                 </p>
             </section>
 
-            <section>
-                <div class="section-label">Active Research & Interest Vectors</div>
+            <!-- Active Research Vectors (The Electric Outlet Hub) -->
+            <section id="research">
+                <div class="section-label">The Electric Outlet — Active Research Vectors</div>
                 <div class="focus-grid">
                     <div class="focus-card">
                         <strong>Physical Compute & AI Infrastructure</strong>
@@ -191,22 +197,23 @@
                     </div>
                     <div class="focus-card">
                         <strong>Systems, Observations & Anything Really</strong>
-                        <span>Anything Really</span>
+                        <span>First-principles breakdowns of real-world physical constraints.</span>
                     </div>
                 </div>
             </section>
 
-            <section id="essays-section">
-                <div class="section-label">Essays</div>
-                <div class="essays-placeholder">
-                    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Essays</div>
-                    Long-form pieces & random thoughts will be published here. In the meantime, past pieces can be viewed in the <a href="archive/index.html" style="color: var(--brand-blue); text-decoration: none;">2024 Legacy Archive</a>.
+            <!-- Essays Section (Paul Graham style index) -->
+            <section id="essays">
+                <div class="section-label">Essays & Field Notes</div>
+                <div class="content-placeholder">
+                    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 4px;">Forthcoming Pieces</div>
+                    Long-form personal reflections and mental models will be published here. Check out <a href="archive/index.html" style="color: var(--brand-blue); text-decoration: none;">The Electric Outlet 2024 Legacy Archive</a> in the meantime.
                 </div>
             </section>
         </main>
 
         <footer>
-            <span>The Electric Outlet</span>
+            <span>Anika Sanyal · The Electric Outlet</span>
             <span>San Francisco Bay Area</span>
         </footer>
 
